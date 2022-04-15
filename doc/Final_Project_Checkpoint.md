@@ -3,7 +3,7 @@
 
 # Data Sources
 ## **Web API you haven’t used before that requires API key or HTTP Basic authorization ✣ (4pts)**
-1. **Origin** :  [Documentation](https://api.rawg.io/docs/#tag/games) `GET https://api.rawg.io/api/games?genres=card Request``
+1. **Origin** :  [Documentation](https://api.rawg.io/docs/#tag/games) `GET https://api.rawg.io/api/games?genres=card Request`
 
 2. **Format**: json
 
@@ -67,7 +67,7 @@ The first question is "Do you care about Metacritic?", the second one is "Are yo
 # Interaction and Presentation Plan
 
 - Command Line Prompts
-  - I plan to use this to collect user answers of the three-question set and return a keyword following the logic I design in sql_query.getKeyword. To illustratem, the keyword is the longest word from the most popular(with the max sum of rating counts, review counts and added counts) game among the initial recommendations.
+  - I plan to use this to collect user answers of the three-question set and return a keyword following the logic I design in sql_query.getKeyword. To illustrate, the keyword is the longest word from the most popular(with the max sum of rating counts, review counts and added counts) game among the initial recommendations.
 
 - Plotly
   - I plan to use Plotly to plot table to better visualize the recommendations. The columns of the table will include "name", "price information", "released at", and "url".
