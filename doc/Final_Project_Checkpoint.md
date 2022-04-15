@@ -13,7 +13,9 @@
 - **Summary of data**
   - 4268 records retrieved
   <img src="./images/Screen Shot 2022-04-14 at 8.08.06 PM.png" alt="Screen Shot 2022-04-14 at 8.08.06 PM" style="zoom: 20%;" />
+  
   - description of data
+    
     - hi 
 
 
