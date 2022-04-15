@@ -16,15 +16,16 @@
   - description of data
     
     - important fields:
-    - "id": int, id of each game
-    - "name": string, name of each game
-    - "slug": string, lower case string connected by '-' between words
-    - "rating": float, rating of each game 
-    - "meatacritic": int, rating by Metacritic
-    - "ratings_counts": int, the amount of ratings
-    - "reviews_counts": int, the amount of reviews
-    - "released": string, the date each game released at, (time format: %Y-%m-%d)
-    - "parent_platforms": string, the parent platform of each game
+    
+      - "id": int, id of each game
+      - "name": string, name of each game
+      - "slug": string, lower case string connected by '-' between words
+      - "rating": float, rating of each game 
+      - "meatacritic": int, rating by Metacritic
+      - "ratings_counts": int, the amount of ratings
+      - "reviews_counts": int, the amount of reviews
+      - "released": string, the date each game released at, (time format: %Y-%m-%d)
+      - "parent_platforms": string, the parent platform of each game
     
 
 
