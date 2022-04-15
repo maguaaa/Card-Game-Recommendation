@@ -11,10 +11,9 @@
 - **Data accessing and caching**: Use API key and cache data as json files.
 
 - **Summary of data**
-
--- 4268 records retrieved
+  - 4268 records retrieved
   <img src="./images/Screen Shot 2022-04-14 at 8.08.06 PM.png" alt="Screen Shot 2022-04-14 at 8.08.06 PM" style="zoom: 20%;" />
-
--- description of data
+  - description of data
+    - hi 
 
 
