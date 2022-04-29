@@ -1,10 +1,12 @@
 
+import json
+
 
 class TreeNode:
     def __init__(self,key,val,level,left=None,right=None, parent=None):
-        self.key = key
-        self.level = level
-        self.payload = val
+        self.key = key # number of node
+        self.level = level # boolean, "0" or "1"
+        self.payload = val # string of sql query
         self.leftChild = left
         self.rightChild = right
         self.parent = parent
@@ -14,6 +16,7 @@ class TreeNode:
 
     def isLeaf(self):
         return not (self.rightChild or self.leftChild)
+
     def hasLeftChild(self):
         return self.leftChild
 
@@ -25,37 +28,6 @@ class TreeNode:
 
     def isRightChild(self):
         return self.parent and self.parent.rightChild == self
-
-
-
-
-class BinarySearchTree:
-
-    def __init__(self):
-        self.root = None
-        self.size = 0
-
-    def put(self,key,val,level):
-        if self.root:
-            self._put(key,val,level,self.root)
-        else:
-            self.root = TreeNode(key,val,level)
-        self.size = self.size + 1
-
-    def _put(self,key,val,level,currentNode):
-        if key < currentNode.key:
-            if currentNode.hasLeftChild():
-                self._put(key,val,level,currentNode.leftChild)
-            else:
-                currentNode.leftChild = TreeNode(key,val,level,parent=currentNode)
-        else:
-            if currentNode.hasRightChild():
-                self._put(key,val,level,currentNode.rightChild)
-            else:
-                currentNode.rightChild = TreeNode(key,val,level,parent=currentNode)
-
-
-
 
 
 
@@ -138,6 +110,7 @@ def binaryTreeBooleanPaths(root):
     return res
 
 
+
 def buildDecisionTree():
     """build decision dict
 
@@ -150,77 +123,157 @@ def buildDecisionTree():
     dict
         key:binary string path, value:query string
     """
-    query0 = '''
-    select distinct t1.*
-    from'''
-
-    query10 = '''
-    (select *
-        from games
-    where metacritic is null
-    )t1'''
-
-    query11 = '''
-    (select *
-        from games
-    where metacritic is not null
-    )t1'''
-
-    query20 = '''
-    where t1.id not in
-        (select distinct id
-            from games_platforms
-        where platform_id in
-            (select id
-                from platforms 
-            where name in ('PlayStation','Xbox','Nintendo','SEGA'))
-        )'''
-
-    query21 = '''
-    where t1.id in
-        (select distinct id
-            from games_platforms
-        where platform_id in
-            (select id
-                from platforms 
-            where name in ('PlayStation','Xbox','Nintendo','SEGA'))
-        )'''
-
-    query30 = '''
-    and t1.id not in
-        (select distinct id
-            from games_tags 
-        where tag_id in 
-            (select id
-                from tags
-            where name like '%solitaire%' 
-            or name like '%single%')
-        )
-    order by t1.rating desc'''
-
-    query31 = '''
-    and t1.id in
-        (select distinct id
-            from games_tags 
-        where tag_id in 
-            (select id
-                from tags
-            where name like '%solitaire%' 
-            or name like '%single%')
-        )
-    order by t1.rating desc'''    
-    nodelist=[(55, query0, '0'),(40, query10, '0'),(83, query11, '1'),(35, query20, '0'),(51, query21, '1'),(80, query20, '0'),(85, query21, '1'),(17, query30, '0'),(37, query31, '1'),(50, query30, '0'),(52, query31, '1'),(70, query30, '0'),(81, query31, '1'),(84, query30, '0'),(100, query31, '1')]
-    tree = BinarySearchTree()
-    for k, v, l in nodelist:
-        tree.put(k,v,l)
-
-    values = binaryTreePaths(tree.root)
-    keys = binaryTreeBooleanPaths(tree.root)
+    
+    values = binaryTreePaths(node_00)
+    keys = binaryTreeBooleanPaths(node_00)
 
     res = {keys[i]:values[i] for i in range(len(keys))}
 
     return res
 
 
+query0 = '''
+select distinct t1.*
+from'''
+
+query10 = '''
+(select *
+    from games
+where metacritic is null
+)t1'''
+
+query11 = '''
+(select *
+    from games
+where metacritic is not null
+)t1'''
+
+query20 = '''
+where t1.id not in
+    (select distinct id
+        from games_platforms
+    where platform_id in
+        (select id
+            from platforms 
+        where name in ('PlayStation','Xbox','Nintendo','SEGA'))
+    )'''
+
+query21 = '''
+where t1.id in
+    (select distinct id
+        from games_platforms
+    where platform_id in
+        (select id
+            from platforms 
+        where name in ('PlayStation','Xbox','Nintendo','SEGA'))
+    )'''
+
+query30 = '''
+and t1.id not in
+    (select distinct id
+        from games_tags 
+    where tag_id in 
+        (select id
+            from tags
+        where name like '%solitaire%' 
+        or name like '%single%')
+    )
+order by t1.rating desc'''
+
+query31 = '''
+and t1.id in
+    (select distinct id
+        from games_tags 
+    where tag_id in 
+        (select id
+            from tags
+        where name like '%solitaire%' 
+        or name like '%single%')
+    )
+order by t1.rating desc'''
+# level0
+node_00 = TreeNode(0, query0, '0')
+# level1
+node_01 = TreeNode(1, query10, '0')
+node_02 = TreeNode(2, query11, '1')
+node_03 = TreeNode(3, query20, '0')
+node_04 = TreeNode(4, query21, '1')
+node_05 = TreeNode(5, query20, '0')
+node_06 = TreeNode(6, query21, '1')
+# level2
+node_07 = TreeNode(7, query30, '0')
+node_08 = TreeNode(8, query31, '1')
+node_09 = TreeNode(9, query30, '0' )
+node_10 = TreeNode(10, query31, '1')
+node_11 = TreeNode(11, query30, '0')
+node_12 = TreeNode(12, query31, '1')
+node_13 = TreeNode(13, query30, '0')
+node_14 = TreeNode(14, query31, '1')
+# build tree
+node_00.leftChild = node_01
+node_00.rightChild = node_02
+node_01.leftChild = node_03
+node_01.rightChild = node_04
+node_02.leftChild = node_05
+node_02.rightChild = node_06
+node_03.leftChild = node_07
+node_03.rightChild = node_08
+node_04.leftChild = node_09
+node_04.rightChild = node_10
+node_05.leftChild = node_11
+node_05.rightChild = node_12
+node_06.leftChild = node_13
+node_06.rightChild = node_14
+
+node_01.parent = node_00
+node_02.parent = node_00
+node_03.parent = node_01
+node_04.parent = node_01
+node_05.parent = node_02
+node_06.parent = node_02
+node_07.parent = node_03
+node_08.parent = node_03
+node_09.parent = node_04
+node_10.parent = node_04
+node_11.parent = node_05
+node_12.parent = node_05
+node_13.parent = node_06
+node_14.parent = node_06
+
+
+
+
+
+def tree_to_dict(root):
+    """write decision tree to json format
+
+    Parameters
+    ----------
+    root: Class TreeNode object
+
+    Returns
+    -------
+    dictionary
+    """
+
+    dict = {}
+    dict["node"] = root.key
+    dict["content"] = root.payload
+    
+    if not root.isLeaf():
+        dict["leftNode"] = tree_to_dict(root.leftChild)
+    else:
+        dict["leftNode"] = None
+    
+    if not root.isLeaf():
+        dict["rightNode"] = tree_to_dict(root.rightChild)
+    else:
+        dict["rightNode"] = None
+
+    return dict
+
+def tree_to_json():
+    with open("./cache/tree/tree.json", "w") as outfile:
+        json.dump(tree_to_dict(node_00), outfile)
 
 

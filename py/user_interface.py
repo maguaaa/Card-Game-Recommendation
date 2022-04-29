@@ -1,4 +1,5 @@
 
+
 def strtoboolstr(val):
     """Convert a string representation of truth to true (1) or false (0).
     True values are 'y', 'yes', 't', 'true', 'on', and '1'; false values
@@ -24,11 +25,14 @@ def collect_answer_str():
     -------
     str
     """
-    root_question = "Do you care about Metacritic?"
-    next_question = "Are you a big fan of game consoles such as PlayStation, Xbox and Nintendo?"
-    leaf_question = "Do you prefer to be a single player?"
+    root_question = "Do you care about Metacritic? "
+    next_question = "Are you a big fan of game consoles such as PlayStation, Xbox and Nintendo? "
+    leaf_question = "Do you prefer to be a single player? "
     ans1 = strtoboolstr(input(root_question))
     ans2 = strtoboolstr(input(next_question))
     ans3 = strtoboolstr(input(leaf_question))
     ans_str = ans1+ans2+ans3
     return ans_str
+
+
+

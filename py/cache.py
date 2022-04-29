@@ -43,6 +43,10 @@ def make_path():
         os.makedirs(r'./cache/games')
     print("[CACHE]->make_path:              [YES]-> './cache/games'")
 
+    if not os.path.exists(r'./cache/tree'):
+        os.makedirs(r'./cache/tree')
+    print("[CACHE]->make_path:              [YES]-> './cache/tree'")
+
     if not os.path.exists(r'./cache/scraping'):
         os.makedirs(r'./cache/scraping')
     print("[CACHE]->make_path:              [YES]-> './cache/scraping")

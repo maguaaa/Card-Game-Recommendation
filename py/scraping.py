@@ -6,6 +6,7 @@ from decision_tree import buildDecisionTree
 import sql_query
 from user_interface import collect_answer_str
 import secrets
+import plotly.graph_objects as go
 
 def get_pagination(link,game,head):
     param = {
@@ -47,9 +48,9 @@ def scrap(link,game,head):
     url=link
     game=game
     head=head
+    total_item = get_pagination(url,game,head) +1
 
-
-    for j in range(1, get_pagination(url,game,head)+1):
+    for j in range(1, total_item):
         if count == 100:
             break
         else:
@@ -99,7 +100,7 @@ def scrap(link,game,head):
                 pass
 
 
-    with open(f'resultfile/json_data_{game}.json', 'w+') as outfile:
+    with open(f'./cache/scraping/json_data_{game}.json', 'w+') as outfile:
         json.dump(data_list, outfile)
 
     print('Successful scraping! All data saved!')
@@ -119,8 +120,34 @@ def final_recommendation():
     decision_dict = buildDecisionTree()
     user_choice = collect_answer_str()
     df_res = sql_query.query_to_dataframe(decision_dict,user_choice)
+    print(df_res)
+    fig = go.Figure(data=[go.Table(
+    header=dict(values=list(df_res.columns),
+                fill_color='paleturquoise',
+                align='left'),
+    cells=dict(values=[df_res.id, df_res.name, df_res.slug, df_res.released, df_res.rating, df_res.metacritic, df_res.ratings_count, df_res.reviews_count, df_res.added],
+               fill_color='lavender',
+               align='left'))])
+    fig.show()
+
     keyword = sql_query.getKeyword(df_res)
+    print(f'Your assigned search term is {keyword}')
     url = 'https://store.steampowered.com/search/results'
     head = {'cookie': secrets.sessionid}
     scrap(url,keyword,head)
+
+def play():
+    ans = input("Hi! Welcome to Card Game Recommendation Program!\n Do you wanna play with us? ")
+    if ans in ('n', 'no', 'f', 'false', 'off', '0'):
+        print("Pity! Looking forward to see you again!")
+    else:
+        print("Alright! I'm gonna ask you 3 quick questions! ")
+        while True:
+            final_recommendation()
+            ans = input("Do you wanna play again? ")
+            if ans in ('n', 'no', 'f', 'false', 'off', '0'):
+                print("Bye! ")
+                break
+    
+    
 

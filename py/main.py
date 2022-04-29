@@ -1,7 +1,8 @@
 import cache
 import api
+import decision_tree
 from database import buildDatabase
-from scraping import final_recommendation
+from scraping import play
 
 if __name__ == "__main__":
 
@@ -11,5 +12,9 @@ if __name__ == "__main__":
 
     buildDatabase()
 
-    final_recommendation()
+    decision_tree.tree_to_json() # create tree json file
+
+    play()
+
+
 
